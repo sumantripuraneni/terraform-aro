@@ -52,6 +52,11 @@ location="eastus"
 
 # Subscription id, subscription name, and tenant id of the current subscription
 subscriptionId=$(az account show --query id --output tsv)
+
+if [[ -z ${subscriptionId} ]]; then
+   echo "Could not get Azure Subcription details. May be Azure login is needed?"
+   exit 1
+fi 
 #subscriptionName=$(az account show --query name --output tsv)
 #tenantId=$(az account show --query tenantId --output tsv)
 
