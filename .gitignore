@@ -2,5 +2,7 @@
 /*.json
 .terraform*
 *.plan
+*.tfplan
 terraform.tfvars
 sshuttle.pid
+*pull*secret*
