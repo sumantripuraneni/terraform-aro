@@ -28,7 +28,9 @@ jobs:
           
       - name: Check env 
         id: list_files1
-        run: ls -lart $HOME
+        run: | 
+             mkdir ~/.ssh
+             ls -lart $HOME
 
              
       - name: Create OCP pull secret 
