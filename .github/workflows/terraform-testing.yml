@@ -25,18 +25,27 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Check env 
-        id:  list
-        run: |
-              pwd
-              ls -lart
-              env
-              
+             
       - name: Create pull Secret 
-        run: 'echo "${OCP_PULL_SECRET}" > pull_secret.txt'
+        run: python -c "import os; file = open('pull_secret.json', 'w'); file.write(os.environ['OCP_PULL_SECRET']); file.close()"
         shell: bash
       
       - name: Check env 
-        id: cat 
-        run: cat pull_secret.txt
+        id: list_files 
+        run: |
+              pwd
+              ls -lart
+
+      - name: Terraform plan
+        id: plan
+        run: |
+             terraform plan -var "pull_secret_path=pull_secret.json" \
+             -var "subscription_id=$ARM_SUBSCRIPTION_ID" \
+             -var "cluster_name=test-aro" -no-color
+
+      - name: Terraform apply
+        id: apply
+        run: terraform apply -var "pull_secret_path=pull_secret.json" \
+             -var "subscription_id=$ARM_SUBSCRIPTION_ID" \
+             -var "cluster_name=test-aro" -auto-approve              
       
