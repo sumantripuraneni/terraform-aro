@@ -25,20 +25,18 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Create pull Secret 
-        run: |
-          python -c "import os; import base64; file = open('pull-secret.txt', 'w'); file.write(base64.b64decode(os.environ['OCP_PULL_SECRET'])); file.close()"
-        shell: bash
-
-
       - name: Check env 
         id:  list
         run: |
               pwd
               ls -lart
               env
+              
+      - name: Create pull Secret 
+        run:  'echo "${ OCP_PULL_SECRET }" | base64 -d > pull_secret.txt'
+        shell: bash
       
       - name: Check env 
         id: cat 
-        run: cat pull-secret.txt
+        run: cat pull_secret.txt
       
