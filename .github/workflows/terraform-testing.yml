@@ -25,24 +25,18 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: ${{ env.TF_VERSION }}
-          
-      - name: Check env 
-        id: list_files1
-        run: | 
-             mkdir ~/.ssh
-             ls -lart $HOME
-
-             
+                     
       - name: Create OCP pull secret 
         run: python -c "import os; file = open('pull_secret.json', 'w'); file.write(os.environ['OCP_PULL_SECRET']); file.close()"
         shell: bash
 
-      - name: Create ssh key  
+      - name: Add SSH key
         run: |
-           ls -lart ~
-           python -c "import os; file = open('~/.ssh/id_rsa', 'w'); file.write(os.environ['SSH_PRIVATE_KEY']); file.close()"
-        shell: bash
-        
+                  mkdir -p /home/runner/.ssh
+                  # DOKKU_SSH_KEY is the name of the repository secret
+                  echo "${{ secrets.SSH_PRIVATE_KEY }}" > /home/runner/.ssh/id_rsa
+                  chmod 600 /home/runner/.ssh/id_rsa 
+       
       - name: Check env 
         id: list_files 
         run: |
