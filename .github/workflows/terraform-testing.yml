@@ -32,7 +32,7 @@ jobs:
           PULL_SECRET : ${{secrets.OCP_PULL_SECRET}}
 
       - name: Check env 
-        id:  list files
+        id:  list
         run: |
               pwd
               ls -lart
