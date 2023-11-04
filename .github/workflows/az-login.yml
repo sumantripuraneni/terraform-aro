@@ -11,13 +11,7 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3.6.0
-
-      - name: Print 
-        run: |
-              echo ${{ secrets.AZURE_CREDENTIALS }} | sed 's/./& /g' > config.json
-              cat config.json
-        shell: bash
-          
+         
       - name: 'Log into Azure using github secret AZURE_CREDENTIALS'
         uses: Azure/login@v1
         with:
