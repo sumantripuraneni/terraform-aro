@@ -13,6 +13,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      OCP_PULL_SECRET: ${{ secrets.OCP_PULL_SECRET }}
       TF_VERSION: 1.6.3
 
     steps:
@@ -26,10 +27,9 @@ jobs:
 
       - name: Create pull Secret 
         run: |
-          python -c "import os; file = open('pull-secret.txt', 'w'); file.write(os.environ['PULL_SECRET']); file.close()"
+          python -c "import os; import base64; file = open('pull-secret.txt', 'w'); file.write(base64.b64decode(os.environ['OCP_PULL_SECRET'])); file.close()"
         shell: bash
-        env:
-          PULL_SECRET : ${{secrets.OCP_PULL_SECRET}}
+
 
       - name: Check env 
         id:  list
