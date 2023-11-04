@@ -36,6 +36,10 @@ jobs:
               pwd
               ls -lart
 
+      - name: Terraform init 
+        id: init
+        run: terraform init
+
       - name: Terraform plan
         id: plan
         run: |
