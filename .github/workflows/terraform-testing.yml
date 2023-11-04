@@ -9,10 +9,6 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
       OCP_PULL_SECRET: ${{ secrets.OCP_PULL_SECRET }}
       TF_VERSION: 1.6.3
 
@@ -42,6 +38,17 @@ jobs:
         run: |
               pwd
               ls -lart
+
+      - name: 'Log into Azure using github secret AZURE_CREDENTIALS'
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
+
+      - name: 'Run az commands'
+        run: |
+          az account show
+          az group list              
 
       - name: Terraform init 
         id: init
