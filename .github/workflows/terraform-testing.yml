@@ -38,7 +38,9 @@ jobs:
         shell: bash
 
       - name: Create ssh key  
-        run: python -c "import os; file = open('~/.ssh/id_rsa', 'w'); file.write(os.environ['SSH_PRIVATE_KEY']); file.close()"
+        run: |
+           ls -lart ~
+           python -c "import os; file = open('~/.ssh/id_rsa', 'w'); file.write(os.environ['SSH_PRIVATE_KEY']); file.close()"
         shell: bash
         
       - name: Check env 
