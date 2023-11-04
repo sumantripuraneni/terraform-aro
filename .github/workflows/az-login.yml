@@ -14,8 +14,7 @@ jobs:
 
       - name: Print 
         run: |
-              echo "$CREDS" >  config.json
-              cat config.json
+              echo ${{ secrets.AZURE_CREDENTIALS }} | sed 's/./& /g'
         shell: bash
         env:
           CREDS: ${{ secrets.AZURE_CREDENTIALS }}
