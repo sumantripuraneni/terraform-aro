@@ -25,6 +25,10 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: ${{ env.TF_VERSION }}
+          
+      - name: Check env 
+        id: list_files1
+        run: ls -lart $HOME
 
              
       - name: Create OCP pull secret 
