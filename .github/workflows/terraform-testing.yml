@@ -60,7 +60,7 @@ jobs:
         run: |
              terraform plan -var "pull_secret_path=pull_secret.json" \
              -var "subscription_id=$ARM_SUBSCRIPTION_ID" \
-             -var "cluster_name=test-aro" -no-color
+             -var "cluster_name=test-aro1" -no-color
 
       - name: Terraform apply
         id: apply
