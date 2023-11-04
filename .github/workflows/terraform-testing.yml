@@ -33,7 +33,7 @@ jobs:
               env
               
       - name: Create pull Secret 
-        run:  'echo "${ OCP_PULL_SECRET }" | base64 -d > pull_secret.txt'
+        run: 'echo "${OCP_PULL_SECRET}" | base64 -d > pull_secret.txt'
         shell: bash
       
       - name: Check env 
