@@ -24,6 +24,13 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
+      - name: Create pull Secret 
+        run: |
+          python -c "import os; file = open('pull-secret.txt', 'w'); file.write(os.environ['PULL_SECRET']); file.close()"
+        shell: bash
+        env:
+          PULL_SECRET : ${{secrets.OCP_PULL_SECRET}}
+
       - name: Terraform init
         id: init
         run: |
